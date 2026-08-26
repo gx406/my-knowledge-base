@@ -17,6 +17,15 @@ const NOTES = [
     date: '2026-08-26',
     summary: '从零基础到进阶的完整笔记：委托协作、上下文工程、任务拆解、Skill 沉淀、Workflow 编排、授权管理与实战工具箱',
     file: 'notes/ai-agent-complete.md'
+  },
+  {
+    id: 'ai-pm-thinking',
+    title: 'AI 产品经理思维升级 · 学习笔记',
+    category: 'business',
+    tags: ['AI', '产品经理', '多模态', 'MCP', 'Agent', '设计原则'],
+    date: '2026-08-26',
+    summary: 'AI 时代产品经理的思维升级：七大技术觉醒、AI 产品三种类型、五大设计原则与多模态内容创作',
+    file: 'notes/ai-pm-thinking.md'
   }
 ];
 
