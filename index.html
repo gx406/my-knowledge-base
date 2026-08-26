@@ -280,6 +280,58 @@
 
     .notes-empty { padding: 2rem 1rem; text-align: center; color: var(--text-muted); font-size: 0.88rem; }
 
+    /* Note Groups */
+    .note-group { margin-bottom: 0.25rem; }
+
+    .note-group-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.55rem 0.6rem;
+      background: none;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      transition: all 0.15s;
+    }
+
+    .note-group-header:hover { background: rgba(118, 118, 128, 0.06); color: var(--text-primary); }
+
+    .note-group-header .group-icon { font-size: 0.9rem; flex-shrink: 0; }
+
+    .note-group-header .group-name { flex: 1; }
+
+    .note-group-header .group-count {
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: rgba(118, 118, 128, 0.08);
+      padding: 0.08rem 0.45rem;
+      border-radius: 8px;
+    }
+
+    .note-group-header .group-chevron {
+      width: 14px;
+      height: 14px;
+      color: var(--text-muted);
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .note-group.collapsed .group-chevron { transform: rotate(-90deg); }
+    .note-group.collapsed .note-group-items { display: none; }
+
+    .note-group-items { padding-left: 0.5rem; }
+
+    .note-group-items .note-item { padding-left: 1rem; }
+
     /* Main Content */
     .main {
       margin-left: var(--sidebar-width);
@@ -784,7 +836,6 @@
         <input type="text" class="search-input" id="searchInput" placeholder="搜索笔记...">
       </div>
 
-      <div class="categories" id="categories"></div>
       <div class="notes-list" id="notesList"></div>
     </aside>
 
@@ -1009,6 +1060,7 @@
     // --- Categories ---
     function renderCategories() {
       const container = document.getElementById('categories');
+      if (!container) return;
       const all = getAllNotes();
       let html = `
         <button class="category-btn ${!selectedCategory ? 'active' : ''}" onclick="selectCategory(null)">
@@ -1025,7 +1077,7 @@
       container.innerHTML = html;
     }
 
-    // --- Notes List ---
+    // --- Notes List (Grouped) ---
     function renderNotesList() {
       const container = document.getElementById('notesList');
       const all = getAllNotes();
@@ -1043,18 +1095,64 @@
         return;
       }
 
-      container.innerHTML = filtered.map(note => {
-        const isLocal = note.isLocal;
-        return `
-          <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')">
-            <span class="note-title">${isLocal ? '📝 ' : ''}${note.title}</span>
-            <span class="note-date">${note.date}</span>
-            ${note.tags ? `<div class="note-tags">${note.tags.slice(0, 3).map(t => `<span class="note-tag">${t}</span>`).join('')}</div>` : ''}
-            <button class="note-delete-btn" onclick="event.stopPropagation(); deleteNote('${note.id}')" title="删除">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+      // Group notes by category
+      const groups = {};
+      filtered.forEach(note => {
+        const cat = note.category || 'other';
+        if (!groups[cat]) groups[cat] = [];
+        groups[cat].push(note);
+      });
+
+      // Render groups in CATEGORIES order, then "other" last
+      const catOrder = CATEGORIES.map(c => c.id).concat(['other']);
+      const sortedCats = [...new Set(Object.keys(groups))].sort((a, b) => {
+        const ai = catOrder.indexOf(a), bi = catOrder.indexOf(b);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      });
+
+      // Initialize collapsed state
+      if (!window.collapsedGroups) window.collapsedGroups = new Set();
+
+      let html = '';
+      sortedCats.forEach(catId => {
+        const notes = groups[catId];
+        const catDef = CATEGORIES.find(c => c.id === catId) || { icon: '📝', name: catId };
+        const isCollapsed = window.collapsedGroups.has(catId);
+        html += `
+          <div class="note-group ${isCollapsed ? 'collapsed' : ''}">
+            <button class="note-group-header" onclick="toggleGroup('${catId}')">
+              <svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+              <span class="group-icon">${catDef.icon}</span>
+              <span class="group-name">${catDef.name}</span>
+              <span class="group-count">${notes.length}</span>
             </button>
-          </button>`;
-      }).join('');
+            <div class="note-group-items">
+              ${notes.map(note => {
+                const isLocal = note.isLocal;
+                return `
+                  <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')">
+                    <span class="note-title">${isLocal ? '📝 ' : ''}${note.title}</span>
+                    <span class="note-date">${note.date}</span>
+                    ${note.tags ? `<div class="note-tags">${note.tags.slice(0, 3).map(t => `<span class="note-tag">${t}</span>`).join('')}</div>` : ''}
+                    <button class="note-delete-btn" onclick="event.stopPropagation(); deleteNote('${note.id}')" title="删除">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+                    </button>
+                  </button>`;
+              }).join('')}
+            </div>
+          </div>`;
+      });
+      container.innerHTML = html;
+    }
+
+    function toggleGroup(catId) {
+      if (!window.collapsedGroups) window.collapsedGroups = new Set();
+      if (window.collapsedGroups.has(catId)) {
+        window.collapsedGroups.delete(catId);
+      } else {
+        window.collapsedGroups.add(catId);
+      }
+      renderNotesList();
     }
 
     function selectCategory(id) {
