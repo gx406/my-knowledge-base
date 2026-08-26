@@ -35,6 +35,15 @@ const NOTES = [
     date: '2026-08-26',
     summary: '如何识别业务中的 AI 需求：产品经理能力框架、用户旅程地图方法论、AI 数据分析三阶段、电商/广告/线下门店实战案例',
     file: 'notes/ai-pm-requirements.md'
+  },
+  {
+    id: 'ai-model-selection',
+    title: 'AI 模型选型与评估实战 · 学习笔记',
+    category: 'ai',
+    tags: ['AI', '模型选型', 'API', '评测', '成本', 'Token', 'TTS'],
+    date: '2026-08-26',
+    summary: '自研 vs 第三方 API 的成本对比、模型选型四步法（算账→看榜→实测→业务验证）、评测榜单与自建测试集方法论',
+    file: 'notes/ai-model-selection.md'
   }
 ];
 
