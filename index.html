@@ -1337,14 +1337,14 @@
       });
 
       if (filtered.length === 0) {
-        container.innerHTML = '<div class="notes-empty">没有找到匹配的笔记</div>';
+        container.innerHTML = '<div class="notes-empty">没有找到匹配的笔记</div>' + renderAddGroupBtn();
         return;
       }
 
       // Sort by insertion order (preserve getAllNotes order)
       filtered.sort((a, b) => allNotes.indexOf(a) - allNotes.indexOf(b));
 
-      container.innerHTML = filtered.map(note => {
+      let html = filtered.map(note => {
         const isLocal = note.isLocal;
         const noteCat = getNoteCategory(note);
         const catDef = getAllCategories().find(c => c.id === noteCat);
@@ -1361,6 +1361,9 @@
             </button>
           </button>`;
       }).join('');
+
+      html += renderAddGroupBtn();
+      container.innerHTML = html;
     }
 
     function renderAddGroupBtn() {
