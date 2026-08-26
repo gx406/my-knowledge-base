@@ -1323,11 +1323,11 @@
       container.innerHTML = html;
     }
 
-    // --- Notes List (Grouped) ---
+    // --- Notes List (Flat, sorted by insertion order) ---
     function renderNotesList() {
       const container = document.getElementById('notesList');
-      const all = getAllNotes();
-      const filtered = all.filter(note => {
+      const allNotes = getAllNotes();
+      const filtered = allNotes.filter(note => {
         const matchesSearch = !searchQuery ||
           note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           (note.tags && note.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))) ||
@@ -1336,97 +1336,31 @@
         return matchesSearch && matchesCategory;
       });
 
-      if (filtered.length === 0 && !searchQuery && customCategories.length === 0) {
+      if (filtered.length === 0) {
         container.innerHTML = '<div class="notes-empty">没有找到匹配的笔记</div>';
         return;
       }
 
-      if (filtered.length === 0 && searchQuery && customCategories.length === 0) {
-        container.innerHTML = '<div class="notes-empty">没有找到匹配的笔记</div>';
-        container.innerHTML += renderAddGroupBtn();
-        return;
-      }
+      // Sort by insertion order (preserve getAllNotes order)
+      filtered.sort((a, b) => allNotes.indexOf(a) - allNotes.indexOf(b));
 
-      // Group notes by category using getNoteCategory
-      const groups = {};
-
-      // Include all custom categories (even empty ones)
-      customCategories.forEach(c => { groups[c.id] = []; });
-
-      // Add original order index for sorting
-      const allNotes = getAllNotes();
-      const filteredWithOrder = filtered.map(note => ({
-        ...note,
-        _order: allNotes.indexOf(note)
-      }));
-
-      filteredWithOrder.forEach(note => {
-        const cat = getNoteCategory(note);
-        if (!groups[cat]) groups[cat] = [];
-        groups[cat].push(note);
-      });
-
-      // Sort notes within each group by insertion order
-      Object.keys(groups).forEach(catId => {
-        groups[catId].sort((a, b) => a._order - b._order);
-      });
-
-      // Render groups in category order
-      const allCats = getAllCategories();
-      const catOrder = allCats.map(c => c.id).concat(['other']);
-      const sortedCats = [...new Set(Object.keys(groups))].sort((a, b) => {
-        const ai = catOrder.indexOf(a), bi = catOrder.indexOf(b);
-        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-      });
-
-      // Initialize collapsed state
-      if (!window.collapsedGroups) window.collapsedGroups = new Set();
-
-      const allCatsForMove = getAllCategories();
-
-      let html = '';
-      sortedCats.forEach(catId => {
-        const notes = groups[catId];
-        const catDef = allCats.find(c => c.id === catId) || { icon: '📝', name: catId };
-        const isCustom = customCategories.some(c => c.id === catId);
-        const isCollapsed = window.collapsedGroups.has(catId);
-        html += `
-          <div class="note-group ${isCollapsed ? 'collapsed' : ''}">
-            <button class="note-group-header" onclick="toggleGroup('${catId}')" ondragover="onGroupDragOver(event)" ondragleave="onGroupDragLeave(event)" ondrop="onGroupDrop(event, '${catId}')">
-              <svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-              <span class="group-icon">${catDef.icon}</span>
-              <span class="group-name">${catDef.name}</span>
-              <span class="group-count">${notes.length}</span>
-              ${isCustom ? `<span class="group-actions">
-                <button class="group-action-btn delete-group" onclick="event.stopPropagation(); deleteGroup('${catId}')" title="删除分组">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
-                </button>
-              </span>` : ''}
+      container.innerHTML = filtered.map(note => {
+        const isLocal = note.isLocal;
+        const noteCat = getNoteCategory(note);
+        const catDef = getAllCategories().find(c => c.id === noteCat);
+        return `
+          <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')" draggable="true" ondragstart="onNoteDragStart(event, '${note.id}')" ondragend="onNoteDragEnd(event)">
+            <span class="note-title">${isLocal ? '📝 ' : ''}${note.title}</span>
+            <span class="note-date">${note.date}${catDef ? ' · ' + catDef.icon + ' ' + catDef.name : ''}</span>
+            ${note.tags ? `<div class="note-tags">${note.tags.slice(0, 3).map(t => `<span class="note-tag">${t}</span>`).join('')}</div>` : ''}
+            <button class="note-move-btn" onclick="event.stopPropagation(); toggleMoveDropdown('${note.id}', this)" title="移动到...">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 9l7 7 7-7"/></svg>
             </button>
-            <div class="note-group-items" ondragover="onGroupDragOver(event)" ondragleave="onGroupDragLeave(event)" ondrop="onGroupDrop(event, '${catId}')">
-              ${notes.length === 0 ? '<div style="padding:0.4rem 1rem;font-size:0.75rem;color:var(--text-muted);">暂无笔记</div>' : ''}
-              ${notes.map(note => {
-                const isLocal = note.isLocal;
-                const noteCat = getNoteCategory(note);
-                return `
-                  <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')" draggable="true" ondragstart="onNoteDragStart(event, '${note.id}')" ondragend="onNoteDragEnd(event)">
-                    <span class="note-title">${isLocal ? '📝 ' : ''}${note.title}</span>
-                    <span class="note-date">${note.date}</span>
-                    ${note.tags ? `<div class="note-tags">${note.tags.slice(0, 3).map(t => `<span class="note-tag">${t}</span>`).join('')}</div>` : ''}
-                    <button class="note-move-btn" onclick="event.stopPropagation(); toggleMoveDropdown('${note.id}', this)" title="移动到...">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 9l7 7 7-7"/></svg>
-                    </button>
-                    <button class="note-delete-btn" onclick="event.stopPropagation(); deleteNote('${note.id}')" title="删除">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
-                    </button>
-                  </button>`;
-              }).join('')}
-            </div>
-          </div>`;
-      });
-
-      html += renderAddGroupBtn();
-      container.innerHTML = html;
+            <button class="note-delete-btn" onclick="event.stopPropagation(); deleteNote('${note.id}')" title="删除">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+            </button>
+          </button>`;
+      }).join('');
     }
 
     function renderAddGroupBtn() {
