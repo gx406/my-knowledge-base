@@ -344,6 +344,298 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* FAB Button */
+    .fab {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 90;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+    }
+
+    .fab-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: none;
+      background: var(--accent);
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fab-btn:hover { background: var(--accent-hover); transform: scale(1.08); }
+
+    .fab-menu {
+      display: none;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-end;
+    }
+
+    .fab.open .fab-menu { display: flex; }
+    .fab.open .fab-btn-main { transform: rotate(45deg); }
+
+    .fab-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 1rem 0.5rem 1rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .fab-menu-item:hover { background: var(--bg-tertiary); border-color: var(--accent); }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 800px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      animation: modalIn 0.2s ease-out;
+    }
+
+    @keyframes modalIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .modal-header h2 { font-size: 1.1rem; font-weight: 600; }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.25rem;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+
+    .modal-close:hover { color: var(--text-primary); }
+
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* Form */
+    .form-group { margin-bottom: 1rem; }
+
+    .form-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text-primary);
+      font-size: 0.88rem;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
+
+    .form-select { cursor: pointer; }
+    .form-select option { background: var(--bg-primary); }
+
+    .form-textarea {
+      min-height: 300px;
+      resize: vertical;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .form-row { display: flex; gap: 1rem; }
+    .form-row .form-group { flex: 1; }
+
+    /* Buttons */
+    .btn {
+      padding: 0.55rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary { background: transparent; color: var(--text-secondary); border-color: var(--border); }
+    .btn-secondary:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+
+    .btn-danger { background: transparent; color: #ef4444; border-color: #7f1d1d; }
+    .btn-danger:hover { background: rgba(239, 68, 68, 0.1); }
+
+    /* Upload Area */
+    .upload-area {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .upload-area:hover, .upload-area.dragover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .upload-area-icon { font-size: 2.5rem; margin-bottom: 0.75rem; display: block; }
+    .upload-area-text { font-size: 0.9rem; color: var(--text-secondary); }
+    .upload-area-hint { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.35rem; }
+
+    .upload-file-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .upload-file-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-primary);
+      border-radius: 6px;
+      font-size: 0.82rem;
+    }
+
+    .upload-file-item .file-name { flex: 1; }
+    .upload-file-item .file-size { color: var(--text-muted); font-size: 0.75rem; }
+
+    .upload-file-item .file-remove {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.1rem;
+    }
+
+    .upload-file-item .file-remove:hover { color: #ef4444; }
+
+    /* Edit button */
+    .note-edit-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-family: var(--font-sans);
+      padding: 0.3rem 0.65rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-left: auto;
+    }
+
+    .note-edit-btn:hover { background: var(--bg-tertiary); color: var(--text-primary); border-color: var(--accent); }
+
+    /* Delete button on note items */
+    .note-delete-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.15rem;
+      border-radius: 3px;
+      opacity: 0;
+      transition: all 0.15s;
+      font-size: 0.75rem;
+    }
+
+    .note-item { position: relative; }
+    .note-item:hover .note-delete-btn { opacity: 1; }
+    .note-delete-btn:hover { color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      z-index: 300;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
     /* Responsive */
     @media (max-width: 768px) {
       .sidebar { transform: translateX(-100%); width: 85vw; max-width: 300px; }
@@ -352,6 +644,11 @@
       .main { margin-left: 0; }
       .content-wrapper { padding: 1rem 1.25rem; padding-top: 4rem; }
       .menu-btn { display: flex; }
+      .fab { bottom: 1.25rem; right: 1.25rem; }
+      .modal { max-height: 95vh; }
+      .modal-overlay { padding: 0.75rem; }
+      .form-row { flex-direction: column; gap: 0; }
+      .form-textarea { min-height: 200px; }
     }
   </style>
 </head>
@@ -392,61 +689,216 @@
     </main>
   </div>
 
+  <!-- FAB Button -->
+  <div class="fab" id="fab">
+    <div class="fab-menu">
+      <button class="fab-menu-item" onclick="openCreateModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 5v14M5 12h14"/></svg>
+        <span>新建笔记</span>
+      </button>
+      <button class="fab-menu-item" onclick="openUploadModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        <span>上传文件</span>
+      </button>
+    </div>
+    <button class="fab-btn fab-btn-main" onclick="toggleFab()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="24" height="24"><path d="M12 5v14M5 12h14"/></svg>
+    </button>
+  </div>
+
+  <!-- Create/Edit Modal -->
+  <div class="modal-overlay" id="createModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modalTitle">新建笔记</h2>
+        <button class="modal-close" onclick="closeCreateModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">标题 *</label>
+            <input type="text" class="form-input" id="noteTitleInput" placeholder="输入笔记标题">
+          </div>
+          <div class="form-group" style="max-width: 200px;">
+            <label class="form-label">分类</label>
+            <select class="form-select" id="noteCategoryInput"></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">标签（逗号分隔）</label>
+          <input type="text" class="form-input" id="noteTagsInput" placeholder="如: AI, 知识库, 技术">
+        </div>
+        <div class="form-group">
+          <label class="form-label">摘要</label>
+          <input type="text" class="form-input" id="noteSummaryInput" placeholder="一句话描述笔记内容（可选）">
+        </div>
+        <div class="form-group">
+          <label class="form-label">内容（Markdown 格式）</label>
+          <textarea class="form-textarea" id="noteContentInput" placeholder="在这里写你的笔记...&#10;&#10;支持 Markdown 语法：&#10;# 标题&#10;**粗体** *斜体*&#10;- 列表项&#10;> 引用&#10;```代码块```"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeCreateModal()">取消</button>
+        <button class="btn btn-primary" id="saveNoteBtn" onclick="saveNote()">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="uploadModal">
+    <div class="modal" style="max-width: 560px;">
+      <div class="modal-header">
+        <h2>上传 Markdown 文件</h2>
+        <button class="modal-close" onclick="closeUploadModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+          <span class="upload-area-icon">📄</span>
+          <div class="upload-area-text">点击或拖拽 .md 文件到这里</div>
+          <div class="upload-area-hint">支持 .md / .txt / .markdown 格式</div>
+        </div>
+        <input type="file" id="fileInput" accept=".md,.txt,.markdown" multiple style="display:none">
+        <div class="upload-file-list" id="uploadFileList"></div>
+        <div class="form-row" style="margin-top: 1rem;">
+          <div class="form-group">
+            <label class="form-label">分类</label>
+            <select class="form-select" id="uploadCategoryInput"></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">标签（逗号分隔，可选）</label>
+            <input type="text" class="form-input" id="uploadTagsInput" placeholder="如: 技术, 笔记">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeUploadModal()">取消</button>
+        <button class="btn btn-primary" id="uploadBtn" onclick="uploadFiles()" disabled>上传</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
   <script>
     // State
     let selectedNote = null;
     let searchQuery = '';
     let selectedCategory = null;
+    let localNotes = [];       // Notes created/edited in browser
+    let uploadFilesList = [];  // Files to upload
+    let editingNoteId = null;  // Currently editing note id
+
+    const STORAGE_KEY = 'kb_local_notes';
 
     // Configure marked
-    marked.use({
-      breaks: true,
-      gfm: true
-    });
+    marked.use({ breaks: true, gfm: true });
 
-    // Initialize
+    // --- Local Storage ---
+    function loadLocalNotes() {
+      try {
+        const data = localStorage.getItem(STORAGE_KEY);
+        localNotes = data ? JSON.parse(data) : [];
+      } catch { localNotes = []; }
+    }
+
+    function saveLocalNotes() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(localNotes));
+    }
+
+    function getAllNotes() {
+      return [...localNotes, ...NOTES];
+    }
+
+    // --- Toast ---
+    function showToast(msg, duration = 2500) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), duration);
+    }
+
+    // --- Initialize ---
     function init() {
-      document.getElementById('notesCount').textContent = NOTES.length + ' 篇笔记';
+      loadLocalNotes();
+      updateNotesCount();
       renderCategories();
       renderNotesList();
       renderPlaceholder();
+      populateCategorySelects();
 
       document.getElementById('searchInput').addEventListener('input', (e) => {
         searchQuery = e.target.value;
         renderNotesList();
       });
+
+      // File input handler
+      document.getElementById('fileInput').addEventListener('change', handleFileSelect);
+
+      // Drag & drop
+      const area = document.getElementById('uploadArea');
+      area.addEventListener('dragover', (e) => { e.preventDefault(); area.classList.add('dragover'); });
+      area.addEventListener('dragleave', () => area.classList.remove('dragover'));
+      area.addEventListener('drop', (e) => {
+        e.preventDefault();
+        area.classList.remove('dragover');
+        handleFileDrop(e.dataTransfer.files);
+      });
+
+      // Close FAB when clicking outside
+      document.addEventListener('click', (e) => {
+        const fab = document.getElementById('fab');
+        if (!fab.contains(e.target)) fab.classList.remove('open');
+      });
+
+      // Keyboard shortcuts
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeCreateModal();
+          closeUploadModal();
+        }
+      });
     }
 
-    // Render categories
+    function updateNotesCount() {
+      const all = getAllNotes();
+      document.getElementById('notesCount').textContent = all.length + ' 篇笔记';
+    }
+
+    function populateCategorySelects() {
+      const options = CATEGORIES.map(c => `<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
+      document.getElementById('noteCategoryInput').innerHTML = options;
+      document.getElementById('uploadCategoryInput').innerHTML = options;
+    }
+
+    // --- Categories ---
     function renderCategories() {
       const container = document.getElementById('categories');
+      const all = getAllNotes();
       let html = `
         <button class="category-btn ${!selectedCategory ? 'active' : ''}" onclick="selectCategory(null)">
-          <span>📋</span>
-          <span>全部</span>
-          <span class="category-count">${NOTES.length}</span>
-        </button>
-      `;
-
+          <span>📋</span><span>全部</span><span class="category-count">${all.length}</span>
+        </button>`;
       CATEGORIES.forEach(cat => {
-        const count = NOTES.filter(n => n.category === cat.id).length;
+        const count = all.filter(n => n.category === cat.id).length;
         if (count === 0) return;
         html += `
           <button class="category-btn ${selectedCategory === cat.id ? 'active' : ''}" onclick="selectCategory('${cat.id}')">
-            <span>${cat.icon}</span>
-            <span>${cat.name}</span>
-            <span class="category-count">${count}</span>
-          </button>
-        `;
+            <span>${cat.icon}</span><span>${cat.name}</span><span class="category-count">${count}</span>
+          </button>`;
       });
-
       container.innerHTML = html;
     }
 
-    // Render notes list
+    // --- Notes List ---
     function renderNotesList() {
       const container = document.getElementById('notesList');
-      const filtered = NOTES.filter(note => {
+      const all = getAllNotes();
+      const filtered = all.filter(note => {
         const matchesSearch = !searchQuery ||
           note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           (note.tags && note.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))) ||
@@ -460,86 +912,273 @@
         return;
       }
 
-      container.innerHTML = filtered.map(note => `
-        <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')">
-          <span class="note-title">${note.title}</span>
-          <span class="note-date">${note.date}</span>
-          ${note.tags ? `<div class="note-tags">${note.tags.slice(0, 3).map(t => `<span class="note-tag">${t}</span>`).join('')}</div>` : ''}
-        </button>
-      `).join('');
+      container.innerHTML = filtered.map(note => {
+        const isLocal = note.isLocal;
+        return `
+          <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')">
+            <span class="note-title">${isLocal ? '📝 ' : ''}${note.title}</span>
+            <span class="note-date">${note.date}</span>
+            ${note.tags ? `<div class="note-tags">${note.tags.slice(0, 3).map(t => `<span class="note-tag">${t}</span>`).join('')}</div>` : ''}
+            <button class="note-delete-btn" onclick="event.stopPropagation(); deleteNote('${note.id}')" title="删除">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+            </button>
+          </button>`;
+      }).join('');
     }
 
-    // Select category
     function selectCategory(id) {
       selectedCategory = selectedCategory === id ? null : id;
       renderCategories();
       renderNotesList();
     }
 
-    // Select note
     function selectNote(id) {
-      selectedNote = NOTES.find(n => n.id === id);
+      selectedNote = getAllNotes().find(n => n.id === id);
       renderNotesList();
       loadNoteContent();
       toggleSidebar(false);
     }
 
-    // Load note content
+    // --- Load Note Content ---
     function loadNoteContent() {
       const container = document.getElementById('content');
-      if (!selectedNote) {
-        renderPlaceholder();
+      if (!selectedNote) { renderPlaceholder(); return; }
+
+      // Local note - content is already in memory
+      if (selectedNote.isLocal) {
+        renderNoteView(selectedNote.content || '');
         return;
       }
 
+      // Server note - fetch from file
       container.innerHTML = '<div class="loading"><div class="spinner"></div><span>加载中...</span></div>';
-
       fetch(selectedNote.file)
         .then(res => res.text())
-        .then(markdown => {
-          const html = `
-            <div class="note-header">
-              <h1>${selectedNote.title}</h1>
-              <div class="note-meta">
-                <span class="note-meta-date">📅 ${selectedNote.date}</span>
-                ${selectedNote.tags ? `<div class="note-meta-tags">${selectedNote.tags.map(t => `<span class="meta-tag">${t}</span>`).join('')}</div>` : ''}
-              </div>
-            </div>
-            <article class="markdown-body">${marked.parse(markdown)}</article>
-          `;
-          container.innerHTML = html;
-          document.querySelectorAll('pre code').forEach(block => {
-            hljs.highlightElement(block);
-          });
-          window.scrollTo(0, 0);
-        })
+        .then(markdown => renderNoteView(markdown))
         .catch(err => {
-          container.innerHTML = `
-            <div class="note-header">
-              <h1>${selectedNote.title}</h1>
-            </div>
-            <div class="markdown-body"><p>无法加载笔记内容: ${err.message}</p></div>
-          `;
+          container.innerHTML = `<div class="note-header"><h1>${selectedNote.title}</h1></div><div class="markdown-body"><p>无法加载: ${err.message}</p></div>`;
         });
     }
 
-    // Render placeholder
+    function renderNoteView(markdown) {
+      const container = document.getElementById('content');
+      const isLocal = selectedNote.isLocal;
+      const html = `
+        <div class="note-header" style="display:flex; align-items:flex-start; gap:1rem;">
+          <div style="flex:1;">
+            <h1>${selectedNote.title}</h1>
+            <div class="note-meta">
+              <span class="note-meta-date">📅 ${selectedNote.date}</span>
+              ${isLocal ? '<span class="meta-tag" style="background:rgba(16,185,129,0.15);color:#10b981;">本地笔记</span>' : ''}
+              ${selectedNote.tags ? `<div class="note-meta-tags">${selectedNote.tags.map(t => `<span class="meta-tag">${t}</span>`).join('')}</div>` : ''}
+            </div>
+          </div>
+          <button class="note-edit-btn" onclick="editNote('${selectedNote.id}')">✏️ 编辑</button>
+        </div>
+        <article class="markdown-body">${marked.parse(markdown)}</article>`;
+      container.innerHTML = html;
+      document.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
+      window.scrollTo(0, 0);
+    }
+
     function renderPlaceholder() {
       document.getElementById('content').innerHTML = `
         <div class="placeholder">
           <span class="placeholder-icon">📚</span>
           <h2>欢迎来到我的知识库</h2>
-          <p>从左侧选择一篇笔记开始阅读</p>
-        </div>
-      `;
+          <p>从左侧选择一篇笔记，或点击右下角按钮新建</p>
+        </div>`;
     }
 
-    // Toggle sidebar (mobile)
+    // --- FAB ---
+    function toggleFab() {
+      document.getElementById('fab').classList.toggle('open');
+    }
+
+    // --- Create / Edit Modal ---
+    function openCreateModal() {
+      editingNoteId = null;
+      document.getElementById('modalTitle').textContent = '新建笔记';
+      document.getElementById('noteTitleInput').value = '';
+      document.getElementById('noteTagsInput').value = '';
+      document.getElementById('noteSummaryInput').value = '';
+      document.getElementById('noteContentInput').value = '';
+      document.getElementById('createModal').classList.add('open');
+      document.getElementById('noteTitleInput').focus();
+      document.getElementById('fab').classList.remove('open');
+    }
+
+    function editNote(id) {
+      const note = getAllNotes().find(n => n.id === id);
+      if (!note) return;
+      editingNoteId = id;
+      document.getElementById('modalTitle').textContent = '编辑笔记';
+      document.getElementById('noteTitleInput').value = note.title;
+      document.getElementById('noteCategoryInput').value = note.category;
+      document.getElementById('noteTagsInput').value = (note.tags || []).join(', ');
+      document.getElementById('noteSummaryInput').value = note.summary || '';
+
+      if (note.isLocal) {
+        document.getElementById('noteContentInput').value = note.content || '';
+        document.getElementById('createModal').classList.add('open');
+      } else {
+        // Fetch server note content
+        fetch(note.file)
+          .then(res => res.text())
+          .then(md => {
+            document.getElementById('noteContentInput').value = md;
+            document.getElementById('createModal').classList.add('open');
+          })
+          .catch(() => {
+            showToast('无法加载笔记内容');
+          });
+      }
+    }
+
+    function closeCreateModal() {
+      document.getElementById('createModal').classList.remove('open');
+      editingNoteId = null;
+    }
+
+    function saveNote() {
+      const title = document.getElementById('noteTitleInput').value.trim();
+      if (!title) { showToast('请输入标题'); return; }
+
+      const category = document.getElementById('noteCategoryInput').value;
+      const tags = document.getElementById('noteTagsInput').value.split(',').map(t => t.trim()).filter(Boolean);
+      const summary = document.getElementById('noteSummaryInput').value.trim();
+      const content = document.getElementById('noteContentInput').value;
+      const now = new Date().toISOString().slice(0, 10);
+
+      if (editingNoteId) {
+        // Update existing local note
+        const idx = localNotes.findIndex(n => n.id === editingNoteId);
+        if (idx >= 0) {
+          localNotes[idx] = { ...localNotes[idx], title, category, tags, summary, content, date: now };
+        } else {
+          // Editing a server note - create local copy
+          const id = 'local-' + Date.now();
+          localNotes.push({ id, title, category, tags, summary, content, date: now, isLocal: true });
+        }
+        showToast('笔记已更新');
+      } else {
+        // Create new
+        const id = 'local-' + Date.now();
+        localNotes.push({ id, title, category, tags, summary, content, date: now, isLocal: true });
+        showToast('笔记已创建');
+      }
+
+      saveLocalNotes();
+      closeCreateModal();
+      updateNotesCount();
+      renderCategories();
+      renderNotesList();
+    }
+
+    // --- Delete ---
+    function deleteNote(id) {
+      if (!confirm('确定要删除这篇笔记吗？')) return;
+      const idx = localNotes.findIndex(n => n.id === id);
+      if (idx >= 0) {
+        localNotes.splice(idx, 1);
+        saveLocalNotes();
+        if (selectedNote && selectedNote.id === id) {
+          selectedNote = null;
+          renderPlaceholder();
+        }
+        updateNotesCount();
+        renderCategories();
+        renderNotesList();
+        showToast('笔记已删除');
+      } else {
+        showToast('服务端笔记无法在浏览器中删除');
+      }
+    }
+
+    // --- Upload Modal ---
+    function openUploadModal() {
+      uploadFilesList = [];
+      renderUploadFiles();
+      document.getElementById('uploadModal').classList.add('open');
+      document.getElementById('fab').classList.remove('open');
+    }
+
+    function closeUploadModal() {
+      document.getElementById('uploadModal').classList.remove('open');
+      uploadFilesList = [];
+    }
+
+    function handleFileSelect(e) {
+      addFiles(Array.from(e.target.files));
+      e.target.value = '';
+    }
+
+    function handleFileDrop(files) {
+      addFiles(Array.from(files));
+    }
+
+    function addFiles(files) {
+      const valid = files.filter(f => /\.(md|txt|markdown)$/i.test(f.name));
+      if (valid.length === 0) { showToast('请选择 .md / .txt / .markdown 文件'); return; }
+      uploadFilesList = [...uploadFilesList, ...valid];
+      renderUploadFiles();
+    }
+
+    function removeUploadFile(idx) {
+      uploadFilesList.splice(idx, 1);
+      renderUploadFiles();
+    }
+
+    function renderUploadFiles() {
+      const list = document.getElementById('uploadFileList');
+      document.getElementById('uploadBtn').disabled = uploadFilesList.length === 0;
+      if (uploadFilesList.length === 0) { list.innerHTML = ''; return; }
+      list.innerHTML = uploadFilesList.map((f, i) => `
+        <div class="upload-file-item">
+          <span>📄</span>
+          <span class="file-name">${f.name}</span>
+          <span class="file-size">${(f.size / 1024).toFixed(1)} KB</span>
+          <button class="file-remove" onclick="removeUploadFile(${i})">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>`).join('');
+    }
+
+    function uploadFiles() {
+      if (uploadFilesList.length === 0) return;
+      const category = document.getElementById('uploadCategoryInput').value;
+      const tags = document.getElementById('uploadTagsInput').value.split(',').map(t => t.trim()).filter(Boolean);
+      const now = new Date().toISOString().slice(0, 10);
+
+      let processed = 0;
+      const total = uploadFilesList.length;
+
+      uploadFilesList.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const content = e.target.result;
+          const title = file.name.replace(/\.(md|txt|markdown)$/i, '');
+          const id = 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6);
+          localNotes.push({ id, title, category, tags, summary: '', content, date: now, isLocal: true });
+          processed++;
+          if (processed === total) {
+            saveLocalNotes();
+            closeUploadModal();
+            updateNotesCount();
+            renderCategories();
+            renderNotesList();
+            showToast(`已上传 ${total} 篇笔记`);
+          }
+        };
+        reader.readAsText(file);
+      });
+    }
+
+    // --- Sidebar Toggle ---
     function toggleSidebar(forceState) {
       const sidebar = document.getElementById('sidebar');
       const isOpen = sidebar.classList.contains('open');
-      const newState = forceState !== undefined ? forceState : !isOpen;
-      sidebar.classList.toggle('open', newState);
+      sidebar.classList.toggle('open', forceState !== undefined ? forceState : !isOpen);
     }
 
     // Start
