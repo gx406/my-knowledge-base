@@ -332,6 +332,23 @@
 
     .note-group-items .note-item { padding-left: 1rem; }
 
+    /* Drag & Drop */
+    .note-item[draggable="true"] { cursor: grab; }
+    .note-item[draggable="true"]:active { cursor: grabbing; }
+    .note-item.dragging { opacity: 0.4; }
+
+    .note-group-header.drag-over {
+      background: var(--accent-light) !important;
+      color: var(--accent) !important;
+      outline: 2px dashed var(--accent);
+      outline-offset: -2px;
+    }
+
+    .note-group-items.drag-over {
+      background: rgba(0, 122, 255, 0.04);
+      border-radius: 8px;
+    }
+
     /* Add Group Button */
     .add-group-btn {
       display: flex;
@@ -1363,7 +1380,7 @@
         const isCollapsed = window.collapsedGroups.has(catId);
         html += `
           <div class="note-group ${isCollapsed ? 'collapsed' : ''}">
-            <button class="note-group-header" onclick="toggleGroup('${catId}')">
+            <button class="note-group-header" onclick="toggleGroup('${catId}')" ondragover="onGroupDragOver(event)" ondragleave="onGroupDragLeave(event)" ondrop="onGroupDrop(event, '${catId}')">
               <svg class="group-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
               <span class="group-icon">${catDef.icon}</span>
               <span class="group-name">${catDef.name}</span>
@@ -1374,13 +1391,13 @@
                 </button>
               </span>` : ''}
             </button>
-            <div class="note-group-items">
+            <div class="note-group-items" ondragover="onGroupDragOver(event)" ondragleave="onGroupDragLeave(event)" ondrop="onGroupDrop(event, '${catId}')">
               ${notes.length === 0 ? '<div style="padding:0.4rem 1rem;font-size:0.75rem;color:var(--text-muted);">暂无笔记</div>' : ''}
               ${notes.map(note => {
                 const isLocal = note.isLocal;
                 const noteCat = getNoteCategory(note);
                 return `
-                  <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')">
+                  <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')" draggable="true" ondragstart="onNoteDragStart(event, '${note.id}')" ondragend="onNoteDragEnd(event)">
                     <span class="note-title">${isLocal ? '📝 ' : ''}${note.title}</span>
                     <span class="note-date">${note.date}</span>
                     ${note.tags ? `<div class="note-tags">${note.tags.slice(0, 3).map(t => `<span class="note-tag">${t}</span>`).join('')}</div>` : ''}
@@ -1417,7 +1434,75 @@
       renderNotesList();
     }
 
-    // --- Move Note ---
+    // --- Drag & Drop ---
+    let draggedNoteId = null;
+
+    function onNoteDragStart(e, noteId) {
+      draggedNoteId = noteId;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', noteId);
+      // Add dragging class after a short delay so it doesn't affect the drag image
+      setTimeout(() => e.target.classList.add('dragging'), 0);
+    }
+
+    function onNoteDragEnd(e) {
+      draggedNoteId = null;
+      e.target.classList.remove('dragging');
+      document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+    }
+
+    function onGroupDragOver(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      // Highlight the group header
+      const group = e.target.closest('.note-group');
+      if (group) {
+        const header = group.querySelector('.note-group-header');
+        const items = group.querySelector('.note-group-items');
+        if (header) header.classList.add('drag-over');
+        if (items) items.classList.add('drag-over');
+      }
+    }
+
+    function onGroupDragLeave(e) {
+      const group = e.target.closest('.note-group');
+      if (group && !group.contains(e.relatedTarget)) {
+        group.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+      }
+    }
+
+    function onGroupDrop(e, targetCatId) {
+      e.preventDefault();
+      const noteId = e.dataTransfer.getData('text/plain') || draggedNoteId;
+      if (!noteId) return;
+
+      // Remove all drag-over styles
+      document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+
+      const note = getAllNotes().find(n => n.id === noteId);
+      if (!note) return;
+
+      const currentCat = getNoteCategory(note);
+      if (currentCat === targetCatId) return; // Already in this group
+
+      // Move the note
+      if (note.isLocal) {
+        const idx = localNotes.findIndex(n => n.id === noteId);
+        if (idx >= 0) {
+          localNotes[idx].category = targetCatId;
+          saveLocalNotes();
+        }
+      } else {
+        categoryOverrides[noteId] = targetCatId;
+        saveCategoryOverrides();
+      }
+
+      const catDef = getAllCategories().find(c => c.id === targetCatId) || { name: targetCatId };
+      showToast(`已移动到「${catDef.name}」`);
+      renderNotesList();
+    }
+
+    // --- Move Note (Dropdown) ---
     function toggleMoveDropdown(noteId, btn) {
       // Close any existing dropdown
       document.querySelectorAll('.move-dropdown.show').forEach(d => d.remove());
