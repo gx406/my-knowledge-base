@@ -1319,20 +1319,23 @@
         return matchesSearch && matchesCategory;
       });
 
-      if (filtered.length === 0 && !searchQuery) {
+      if (filtered.length === 0 && !searchQuery && customCategories.length === 0) {
         container.innerHTML = '<div class="notes-empty">没有找到匹配的笔记</div>';
         return;
       }
 
-      if (filtered.length === 0) {
+      if (filtered.length === 0 && searchQuery && customCategories.length === 0) {
         container.innerHTML = '<div class="notes-empty">没有找到匹配的笔记</div>';
-        // Still show add group button
         container.innerHTML += renderAddGroupBtn();
         return;
       }
 
       // Group notes by category using getNoteCategory
       const groups = {};
+
+      // Include all custom categories (even empty ones)
+      customCategories.forEach(c => { groups[c.id] = []; });
+
       filtered.forEach(note => {
         const cat = getNoteCategory(note);
         if (!groups[cat]) groups[cat] = [];
@@ -1372,6 +1375,7 @@
               </span>` : ''}
             </button>
             <div class="note-group-items">
+              ${notes.length === 0 ? '<div style="padding:0.4rem 1rem;font-size:0.75rem;color:var(--text-muted);">暂无笔记</div>' : ''}
               ${notes.map(note => {
                 const isLocal = note.isLocal;
                 const noteCat = getNoteCategory(note);
