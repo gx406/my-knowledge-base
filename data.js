@@ -53,6 +53,15 @@ const NOTES = [
     date: '2026-08-26',
     summary: 'AI 设计工具全景图、零代码原型搭建（Lovable/V0/Manus）、AI Coding 对前端的影响、竞品数据采集与 RPA 实战',
     file: 'notes/ai-prototype-tools.md'
+  },
+  {
+    id: 'ai-data-analysis',
+    title: 'AI + 数据分析实战 · 学习笔记',
+    category: 'ai',
+    tags: ['AI', '数据分析', 'Chat Excel', '用户标签', '归因分析', 'LTV', '数据平台'],
+    date: '2026-08-26',
+    summary: '数据分析四大维度、智能数据平台三阶段、AI 内容出海项目实战案例、用户标签体系与快速验证方法论',
+    file: 'notes/ai-data-analysis.md'
   }
 ];
 
