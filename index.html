@@ -1353,10 +1353,22 @@
       // Include all custom categories (even empty ones)
       customCategories.forEach(c => { groups[c.id] = []; });
 
-      filtered.forEach(note => {
+      // Add original order index for sorting
+      const allNotes = getAllNotes();
+      const filteredWithOrder = filtered.map(note => ({
+        ...note,
+        _order: allNotes.indexOf(note)
+      }));
+
+      filteredWithOrder.forEach(note => {
         const cat = getNoteCategory(note);
         if (!groups[cat]) groups[cat] = [];
         groups[cat].push(note);
+      });
+
+      // Sort notes within each group by insertion order
+      Object.keys(groups).forEach(catId => {
+        groups[catId].sort((a, b) => a._order - b._order);
       });
 
       // Render groups in category order
