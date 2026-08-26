@@ -17,6 +17,15 @@ const NOTES = [
     date: '2026-08-26',
     summary: '怎样把 AI 从聊天工具变成真正的工作搭档：委托、任务拆解、上下文工程与授权管理',
     file: 'notes/ai-agent-delegation.md'
+  },
+  {
+    id: 'ai-agent-skill-workflow',
+    title: 'AI Agent 进阶：Skill、Workflow 与实战工具箱',
+    category: 'ai',
+    tags: ['AI', 'Agent', 'Skill', 'Workflow', 'MCP', '工具箱'],
+    date: '2026-08-26',
+    summary: '怎样把零散的 AI 使用经验沉淀为可复用的方法，以及日常实用工具箱速查',
+    file: 'notes/ai-agent-skill-workflow.md'
   }
 ];
 
