@@ -26,6 +26,15 @@ const NOTES = [
     date: '2026-08-26',
     summary: 'AI 时代产品经理的思维升级：七大技术觉醒、AI 产品三种类型、五大设计原则与多模态内容创作',
     file: 'notes/ai-pm-thinking.md'
+  },
+  {
+    id: 'ai-pm-requirements',
+    title: 'AI 产品需求挖掘与实战案例 · 学习笔记',
+    category: 'business',
+    tags: ['AI', '产品经理', '需求挖掘', '用户旅程', 'AIGC', '数据分析', '电商'],
+    date: '2026-08-26',
+    summary: '如何识别业务中的 AI 需求：产品经理能力框架、用户旅程地图方法论、AI 数据分析三阶段、电商/广告/线下门店实战案例',
+    file: 'notes/ai-pm-requirements.md'
   }
 ];
 
