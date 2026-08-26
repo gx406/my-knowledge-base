@@ -44,6 +44,15 @@ const NOTES = [
     date: '2026-08-26',
     summary: '自研 vs 第三方 API 的成本对比、模型选型四步法（算账→看榜→实测→业务验证）、评测榜单与自建测试集方法论',
     file: 'notes/ai-model-selection.md'
+  },
+  {
+    id: 'ai-prototype-tools',
+    title: 'AI 原型设计与工具实战 · 学习笔记',
+    category: 'ai',
+    tags: ['AI', '原型设计', 'Lovable', 'V0', 'Cursor', '竞品分析', 'RPA'],
+    date: '2026-08-26',
+    summary: 'AI 设计工具全景图、零代码原型搭建（Lovable/V0/Manus）、AI Coding 对前端的影响、竞品数据采集与 RPA 实战',
+    file: 'notes/ai-prototype-tools.md'
   }
 ];
 
