@@ -7,7 +7,7 @@ const NOTES = [
     tags: ['AI', '知识库', 'RAG', 'Agent', '知识治理'],
     date: '2026-08-26',
     summary: '整理自一场关于 AI 知识库产品在业务落地中困境与出路的圆桌讨论',
-    file: '/notes/ai-knowledge-base.md'
+    file: 'notes/ai-knowledge-base.md'
   }
 ];
 
