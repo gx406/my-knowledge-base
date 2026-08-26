@@ -10,22 +10,13 @@ const NOTES = [
     file: 'notes/ai-knowledge-base.md'
   },
   {
-    id: 'ai-agent-delegation',
-    title: '从聊天到委托：AI Agent 协作入门笔记',
+    id: 'ai-agent-complete',
+    title: 'AI Agent 完整学习笔记：从聊天到委托，从 Skill 到 Workflow',
     category: 'ai',
-    tags: ['AI', 'Agent', '委托', '协作', '任务拆解', '验收'],
+    tags: ['AI', 'Agent', '委托', 'Skill', 'Workflow', '上下文工程', '任务拆解', '工具箱'],
     date: '2026-08-26',
-    summary: '怎样把 AI 从聊天工具变成真正的工作搭档：委托、任务拆解、上下文工程与授权管理',
-    file: 'notes/ai-agent-delegation.md'
-  },
-  {
-    id: 'ai-agent-skill-workflow',
-    title: 'AI Agent 进阶：Skill、Workflow 与实战工具箱',
-    category: 'ai',
-    tags: ['AI', 'Agent', 'Skill', 'Workflow', 'MCP', '工具箱'],
-    date: '2026-08-26',
-    summary: '怎样把零散的 AI 使用经验沉淀为可复用的方法，以及日常实用工具箱速查',
-    file: 'notes/ai-agent-skill-workflow.md'
+    summary: '从零基础到进阶的完整笔记：委托协作、上下文工程、任务拆解、Skill 沉淀、Workflow 编排、授权管理与实战工具箱',
+    file: 'notes/ai-agent-complete.md'
   }
 ];
 
