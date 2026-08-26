@@ -332,6 +332,167 @@
 
     .note-group-items .note-item { padding-left: 1rem; }
 
+    /* Add Group Button */
+    .add-group-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      width: calc(100% - 1rem);
+      margin: 0.25rem 0.5rem;
+      padding: 0.45rem 0.6rem;
+      background: none;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+
+    .add-group-btn:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); border-style: solid; }
+
+    /* Group Action Buttons */
+    .group-actions { display: flex; gap: 2px; margin-left: 4px; opacity: 0; transition: opacity 0.15s; }
+    .note-group-header:hover .group-actions { opacity: 1; }
+
+    .group-action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 2px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .group-action-btn:hover { background: rgba(118, 118, 128, 0.12); color: var(--text-primary); }
+    .group-action-btn.delete-group:hover { color: #ff3b30; background: rgba(255, 59, 48, 0.08); }
+
+    /* Move Dropdown on Note Items */
+    .note-move-btn {
+      position: absolute;
+      top: 0.55rem;
+      right: 2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 3px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      opacity: 0;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+    }
+
+    .note-item:hover .note-move-btn { opacity: 1; }
+    .note-move-btn:hover { background: rgba(118, 118, 128, 0.12); color: var(--text-primary); }
+
+    .move-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0.5rem;
+      z-index: 100;
+      background: var(--bg-card);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow-lg);
+      padding: 0.3rem;
+      min-width: 160px;
+      display: none;
+    }
+
+    .move-dropdown.show { display: block; }
+
+    .move-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 0.45rem 0.6rem;
+      background: none;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      text-align: left;
+      transition: all 0.1s;
+    }
+
+    .move-dropdown-item:hover { background: var(--accent-light); color: var(--accent); }
+    .move-dropdown-item.current { font-weight: 600; color: var(--accent); }
+
+    /* New Group Modal */
+    .mini-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .mini-modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .mini-modal {
+      background: var(--bg-card);
+      border-radius: 14px;
+      box-shadow: var(--shadow-lg);
+      padding: 1.5rem;
+      width: 340px;
+      max-width: 90vw;
+      transform: scale(0.95);
+      transition: transform 0.2s;
+    }
+
+    .mini-modal-overlay.open .mini-modal { transform: scale(1); }
+
+    .mini-modal h3 { margin: 0 0 1rem; font-size: 1rem; font-weight: 600; color: var(--text-primary); }
+
+    .mini-modal .form-group { margin-bottom: 0.8rem; }
+
+    .mini-modal .form-label { font-size: 0.8rem; margin-bottom: 0.3rem; display: block; color: var(--text-secondary); }
+
+    .mini-modal .form-input { width: 100%; padding: 0.5rem 0.7rem; border: 0.5px solid var(--border); border-radius: 8px; font-size: 0.85rem; background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-sans); }
+
+    .mini-modal .form-input:focus { outline: none; border-color: var(--accent); }
+
+    .icon-picker { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+    .icon-picker button {
+      width: 36px; height: 36px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+
+    .icon-picker button:hover { background: var(--accent-light); }
+    .icon-picker button.selected { border-color: var(--accent); background: var(--accent-light); }
+
+    .mini-modal-footer { display: flex; justify-content: flex-end; gap: 0.5rem; margin-top: 1.2rem; }
+
+    .mini-modal .btn { padding: 0.45rem 1rem; border-radius: 8px; border: none; cursor: pointer; font-size: 0.85rem; font-family: var(--font-sans); font-weight: 500; }
+    .mini-modal .btn-cancel { background: rgba(118, 118, 128, 0.12); color: var(--text-secondary); }
+    .mini-modal .btn-cancel:hover { background: rgba(118, 118, 128, 0.2); }
+    .mini-modal .btn-confirm { background: var(--accent); color: #fff; }
+    .mini-modal .btn-confirm:hover { background: var(--accent-hover); }
+
     /* Main Content */
     .main {
       margin-left: var(--sidebar-width);
@@ -947,6 +1108,25 @@
   <!-- Toast -->
   <div class="toast" id="toast"></div>
 
+  <!-- New Group Modal -->
+  <div class="mini-modal-overlay" id="newGroupOverlay" onclick="if(event.target===this)closeNewGroupModal()">
+    <div class="mini-modal">
+      <h3 id="groupModalTitle">新建分组</h3>
+      <div class="form-group">
+        <label class="form-label">分组名称</label>
+        <input type="text" class="form-input" id="groupNameInput" placeholder="如：产品设计、读书笔记" maxlength="20">
+      </div>
+      <div class="form-group">
+        <label class="form-label">选择图标</label>
+        <div class="icon-picker" id="iconPicker"></div>
+      </div>
+      <div class="mini-modal-footer">
+        <button class="btn btn-cancel" onclick="closeNewGroupModal()">取消</button>
+        <button class="btn btn-confirm" id="groupModalConfirm" onclick="confirmNewGroup()">创建</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // State
     let selectedNote = null;
@@ -958,6 +1138,47 @@
 
     const STORAGE_KEY = 'kb_local_notes';
     const THEME_KEY = 'kb_theme';
+    const CAT_STORAGE_KEY = 'kb_custom_categories';
+    const OVERRIDE_KEY = 'kb_category_overrides';
+
+    // Custom categories (stored in localStorage)
+    let customCategories = [];
+    // Category overrides for server notes { noteId: categoryId }
+    let categoryOverrides = {};
+
+    function loadCustomCategories() {
+      try {
+        const data = localStorage.getItem(CAT_STORAGE_KEY);
+        customCategories = data ? JSON.parse(data) : [];
+      } catch { customCategories = []; }
+    }
+
+    function saveCustomCategories() {
+      localStorage.setItem(CAT_STORAGE_KEY, JSON.stringify(customCategories));
+    }
+
+    function loadCategoryOverrides() {
+      try {
+        const data = localStorage.getItem(OVERRIDE_KEY);
+        categoryOverrides = data ? JSON.parse(data) : {};
+      } catch { categoryOverrides = {}; }
+    }
+
+    function saveCategoryOverrides() {
+      localStorage.setItem(OVERRIDE_KEY, JSON.stringify(categoryOverrides));
+    }
+
+    // Get all categories (default + custom)
+    function getAllCategories() {
+      return [...CATEGORIES, ...customCategories];
+    }
+
+    function getNoteCategory(note) {
+      // For local notes, use their own category
+      if (note.isLocal) return note.category || 'other';
+      // For server notes, check overrides first
+      return categoryOverrides[note.id] || note.category || 'other';
+    }
 
     // --- Theme ---
     function loadTheme() {
@@ -1007,6 +1228,8 @@
     // --- Initialize ---
     function init() {
       loadLocalNotes();
+      loadCustomCategories();
+      loadCategoryOverrides();
       updateNotesCount();
       renderCategories();
       renderNotesList();
@@ -1016,6 +1239,11 @@
       document.getElementById('searchInput').addEventListener('input', (e) => {
         searchQuery = e.target.value;
         renderNotesList();
+      });
+
+      // New group modal Enter key
+      document.getElementById('groupNameInput').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') confirmNewGroup();
       });
 
       // File input handler
@@ -1052,7 +1280,8 @@
     }
 
     function populateCategorySelects() {
-      const options = CATEGORIES.map(c => `<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
+      const cats = getAllCategories();
+      const options = cats.map(c => `<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
       document.getElementById('noteCategoryInput').innerHTML = options;
       document.getElementById('uploadCategoryInput').innerHTML = options;
     }
@@ -1086,25 +1315,33 @@
           note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
           (note.tags && note.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase()))) ||
           (note.summary && note.summary.toLowerCase().includes(searchQuery.toLowerCase()));
-        const matchesCategory = !selectedCategory || note.category === selectedCategory;
+        const matchesCategory = !selectedCategory || getNoteCategory(note) === selectedCategory;
         return matchesSearch && matchesCategory;
       });
 
-      if (filtered.length === 0) {
+      if (filtered.length === 0 && !searchQuery) {
         container.innerHTML = '<div class="notes-empty">没有找到匹配的笔记</div>';
         return;
       }
 
-      // Group notes by category
+      if (filtered.length === 0) {
+        container.innerHTML = '<div class="notes-empty">没有找到匹配的笔记</div>';
+        // Still show add group button
+        container.innerHTML += renderAddGroupBtn();
+        return;
+      }
+
+      // Group notes by category using getNoteCategory
       const groups = {};
       filtered.forEach(note => {
-        const cat = note.category || 'other';
+        const cat = getNoteCategory(note);
         if (!groups[cat]) groups[cat] = [];
         groups[cat].push(note);
       });
 
-      // Render groups in CATEGORIES order, then "other" last
-      const catOrder = CATEGORIES.map(c => c.id).concat(['other']);
+      // Render groups in category order
+      const allCats = getAllCategories();
+      const catOrder = allCats.map(c => c.id).concat(['other']);
       const sortedCats = [...new Set(Object.keys(groups))].sort((a, b) => {
         const ai = catOrder.indexOf(a), bi = catOrder.indexOf(b);
         return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
@@ -1113,10 +1350,13 @@
       // Initialize collapsed state
       if (!window.collapsedGroups) window.collapsedGroups = new Set();
 
+      const allCatsForMove = getAllCategories();
+
       let html = '';
       sortedCats.forEach(catId => {
         const notes = groups[catId];
-        const catDef = CATEGORIES.find(c => c.id === catId) || { icon: '📝', name: catId };
+        const catDef = allCats.find(c => c.id === catId) || { icon: '📝', name: catId };
+        const isCustom = customCategories.some(c => c.id === catId);
         const isCollapsed = window.collapsedGroups.has(catId);
         html += `
           <div class="note-group ${isCollapsed ? 'collapsed' : ''}">
@@ -1125,15 +1365,24 @@
               <span class="group-icon">${catDef.icon}</span>
               <span class="group-name">${catDef.name}</span>
               <span class="group-count">${notes.length}</span>
+              ${isCustom ? `<span class="group-actions">
+                <button class="group-action-btn delete-group" onclick="event.stopPropagation(); deleteGroup('${catId}')" title="删除分组">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
+                </button>
+              </span>` : ''}
             </button>
             <div class="note-group-items">
               ${notes.map(note => {
                 const isLocal = note.isLocal;
+                const noteCat = getNoteCategory(note);
                 return `
                   <button class="note-item ${selectedNote && selectedNote.id === note.id ? 'active' : ''}" onclick="selectNote('${note.id}')">
                     <span class="note-title">${isLocal ? '📝 ' : ''}${note.title}</span>
                     <span class="note-date">${note.date}</span>
                     ${note.tags ? `<div class="note-tags">${note.tags.slice(0, 3).map(t => `<span class="note-tag">${t}</span>`).join('')}</div>` : ''}
+                    <button class="note-move-btn" onclick="event.stopPropagation(); toggleMoveDropdown('${note.id}', this)" title="移动到...">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 9l7 7 7-7"/></svg>
+                    </button>
                     <button class="note-delete-btn" onclick="event.stopPropagation(); deleteNote('${note.id}')" title="删除">
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>
                     </button>
@@ -1142,7 +1391,16 @@
             </div>
           </div>`;
       });
+
+      html += renderAddGroupBtn();
       container.innerHTML = html;
+    }
+
+    function renderAddGroupBtn() {
+      return `<button class="add-group-btn" onclick="openNewGroupModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M12 5v14M5 12h14"/></svg>
+        <span>新建分组</span>
+      </button>`;
     }
 
     function toggleGroup(catId) {
@@ -1152,6 +1410,168 @@
       } else {
         window.collapsedGroups.add(catId);
       }
+      renderNotesList();
+    }
+
+    // --- Move Note ---
+    function toggleMoveDropdown(noteId, btn) {
+      // Close any existing dropdown
+      document.querySelectorAll('.move-dropdown.show').forEach(d => d.remove());
+
+      const note = getAllNotes().find(n => n.id === noteId);
+      if (!note) return;
+      const currentCat = getNoteCategory(note);
+      const allCats = getAllCategories();
+
+      const dropdown = document.createElement('div');
+      dropdown.className = 'move-dropdown show';
+      dropdown.onclick = e => e.stopPropagation();
+
+      let items = allCats.map(c => {
+        const isCurrent = c.id === currentCat;
+        return `<button class="move-dropdown-item ${isCurrent ? 'current' : ''}" onclick="moveNote('${noteId}', '${c.id}')">
+          <span>${c.icon}</span><span>${c.name}</span>${isCurrent ? '<span style="margin-left:auto;font-size:0.7rem;">当前</span>' : ''}
+        </button>`;
+      }).join('');
+
+      dropdown.innerHTML = items;
+      btn.parentElement.appendChild(dropdown);
+
+      // Close on outside click
+      const closeHandler = (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.remove();
+          document.removeEventListener('click', closeHandler);
+        }
+      };
+      setTimeout(() => document.addEventListener('click', closeHandler), 0);
+    }
+
+    function moveNote(noteId, newCatId) {
+      document.querySelectorAll('.move-dropdown.show').forEach(d => d.remove());
+
+      const note = getAllNotes().find(n => n.id === noteId);
+      if (!note) return;
+
+      if (note.isLocal) {
+        // Update local note directly
+        const idx = localNotes.findIndex(n => n.id === noteId);
+        if (idx >= 0) {
+          localNotes[idx].category = newCatId;
+          saveLocalNotes();
+        }
+      } else {
+        // Store override for server notes
+        categoryOverrides[noteId] = newCatId;
+        saveCategoryOverrides();
+      }
+
+      const catDef = getAllCategories().find(c => c.id === newCatId) || { name: newCatId };
+      showToast(`已移动到「${catDef.name}」`);
+      renderNotesList();
+    }
+
+    // --- New Group Modal ---
+    const GROUP_ICONS = ['📁', '📂', '🗂', '📌', '🎯', '🔬', '🎨', '🎵', '🎮', '📸', '✈️', '🏠', '💰', '🔧', '📊', '🧪', '🌱', '⭐', '🔖', '💎', '🎓', '🏷', '📋', '🗃'];
+    let selectedGroupIcon = '📁';
+    let editingGroupId = null;
+
+    function openNewGroupModal() {
+      editingGroupId = null;
+      document.getElementById('groupModalTitle').textContent = '新建分组';
+      document.getElementById('groupModalConfirm').textContent = '创建';
+      document.getElementById('groupNameInput').value = '';
+      selectedGroupIcon = '📁';
+      renderIconPicker();
+      document.getElementById('newGroupOverlay').classList.add('open');
+      setTimeout(() => document.getElementById('groupNameInput').focus(), 100);
+    }
+
+    function renderIconPicker() {
+      const picker = document.getElementById('iconPicker');
+      picker.innerHTML = GROUP_ICONS.map(icon =>
+        `<button type="button" class="${icon === selectedGroupIcon ? 'selected' : ''}" onclick="pickIcon('${icon}', this)">${icon}</button>`
+      ).join('');
+    }
+
+    function pickIcon(icon, btn) {
+      selectedGroupIcon = icon;
+      document.querySelectorAll('.icon-picker button').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    }
+
+    function closeNewGroupModal() {
+      document.getElementById('newGroupOverlay').classList.remove('open');
+      editingGroupId = null;
+    }
+
+    function confirmNewGroup() {
+      const name = document.getElementById('groupNameInput').value.trim();
+      if (!name) { showToast('请输入分组名称'); return; }
+
+      if (editingGroupId) {
+        // Rename existing custom group
+        const idx = customCategories.findIndex(c => c.id === editingGroupId);
+        if (idx >= 0) {
+          customCategories[idx].name = name;
+          customCategories[idx].icon = selectedGroupIcon;
+          saveCustomCategories();
+          showToast(`分组已更新`);
+        }
+      } else {
+        // Check duplicates
+        const allCats = getAllCategories();
+        if (allCats.some(c => c.name === name)) {
+          showToast('该分组名称已存在');
+          return;
+        }
+
+        const id = 'custom-' + Date.now();
+        customCategories.push({ id, name, icon: selectedGroupIcon });
+        saveCustomCategories();
+        showToast(`分组「${name}」已创建`);
+      }
+
+      closeNewGroupModal();
+      populateCategorySelects();
+      renderNotesList();
+    }
+
+    function deleteGroup(catId) {
+      const catDef = customCategories.find(c => c.id === catId);
+      if (!catDef) return;
+
+      // Check if group has notes
+      const notesInGroup = getAllNotes().filter(n => getNoteCategory(n) === catId);
+      const msg = notesInGroup.length > 0
+        ? `「${catDef.name}」下有 ${notesInGroup.length} 篇笔记，删除后这些笔记将移至「其他」分组。确定删除？`
+        : `确定删除分组「${catDef.name}」？`;
+
+      if (!confirm(msg)) return;
+
+      // Remove overrides for notes in this group
+      notesInGroup.forEach(n => {
+        if (!n.isLocal && categoryOverrides[n.id]) {
+          delete categoryOverrides[n.id];
+        }
+      });
+
+      // Move local notes to 'other'
+      notesInGroup.forEach(n => {
+        if (n.isLocal) {
+          const idx = localNotes.findIndex(ln => ln.id === n.id);
+          if (idx >= 0) localNotes[idx].category = 'other';
+        }
+      });
+
+      // Remove custom category
+      customCategories = customCategories.filter(c => c.id !== catId);
+      saveCustomCategories();
+      saveLocalNotes();
+      saveCategoryOverrides();
+
+      showToast(`分组「${catDef.name}」已删除`);
+      populateCategorySelects();
       renderNotesList();
     }
 
