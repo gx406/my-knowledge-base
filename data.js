@@ -62,6 +62,15 @@ const NOTES = [
     date: '2026-08-26',
     summary: '数据分析四大维度、智能数据平台三阶段、AI 内容出海项目实战案例、用户标签体系与快速验证方法论',
     file: 'notes/ai-data-analysis.md'
+  },
+  {
+    id: 'ai-project-business',
+    title: 'AI 项目推动与商业思维 · 学习笔记',
+    category: 'business',
+    tags: ['AI', '项目管理', '商业画布', 'AB测试', '成本收益', '开源', 'TAPD'],
+    date: '2026-08-26',
+    summary: '项目立项指标定义、燃气客服平台需求定制实战、技术评审要点、AI 风控困境、四个关键反思与商业画布方法论',
+    file: 'notes/ai-project-business.md'
   }
 ];
 
