@@ -81,6 +81,16 @@ const NOTES = [
     file: 'notes/ai-project-business.md'
   },
   {
+    id: 'ai-pm-ability-map',
+    title: '40k AI 产品经理能力地图',
+    category: 'business',
+    tags: ['AI', '产品经理', '能力地图', '职业发展', '成长路径'],
+    date: '2026-08-27',
+    summary: '面向 40k 水平的 AI 产品经理能力模型：基础产品能力、AI 专业能力、业务商业化能力、高阶软能力，附自检清单与转化路径',
+    intro: '【产品经理 · 职业发展与能力规划】建立 40k AI 产品经理完整能力框架，通过自检清单定位能力短板，掌握从学习原理到工作产出的转化路径。',
+    file: 'notes/ai-pm-ability-map.md'
+  },
+  {
     id: 'aigc-product-opportunities',
     title: 'AIGC 产品机会判断 · 学习笔记',
     category: 'business',
