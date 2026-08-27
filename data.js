@@ -101,6 +101,16 @@ const NOTES = [
     file: 'notes/aigc-product-opportunities.md'
   },
   {
+    id: 'ai-sales-assistant-project',
+    title: 'AI 销售助手 · 项目实战演练',
+    category: 'business',
+    tags: ['AI', '产品经理', '项目实战', '销售助手', 'PRD', 'ROI'],
+    date: '2026-08-27',
+    summary: '从需求分析到 PRD 的完整项目演练：用户画像、用户旅程地图、MVP 设计、模型选型、Prompt 设计、评测方案、上线计划、ROI 测算',
+    intro: '【产品经理 · 项目实战与方案产出】通过 AI 销售助手完整案例，学会从需求分析到 PRD 的全流程，产出可评审的产品方案和商业分析。',
+    file: 'notes/ai-sales-assistant-project.md'
+  },
+  {
     id: 'codelive-skills-quest',
     title: 'Codelive Skills 与 Quest 1.0 实战 · 学习笔记',
     category: 'tech',
