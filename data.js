@@ -80,6 +80,15 @@ const NOTES = [
     date: '2026-08-27',
     summary: 'AIGC 应用悲观 vs 乐观、值得做的方向（情感中介/内容暴力破解）、不建议做的方向、AI 产品三种价值逻辑、零提示与上下文触发',
     file: 'notes/aigc-product-opportunities.md'
+  },
+  {
+    id: 'codelive-skills-quest',
+    title: 'Codelive Skills 与 Quest 1.0 实战 · 学习笔记',
+    category: 'tech',
+    tags: ['AI', 'Skill', 'MCP', 'Quest', 'AI Coding', 'DevOps', '认知债'],
+    date: '2026-08-27',
+    summary: 'Skill 实战避坑指南、Skill vs MCP vs Command vs Role、Quest 1.0 设计哲学与执行流程、Token 效率法则、用 Skill 重构 DevOps 工作流',
+    file: 'notes/codelive-skills-quest.md'
   }
 ];
 
