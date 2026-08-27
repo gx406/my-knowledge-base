@@ -205,6 +205,8 @@
       padding: 0.25rem 0.5rem;
       border-bottom: 0.5px solid var(--border);
       flex-shrink: 0;
+      max-height: 35vh;
+      overflow-y: auto;
     }
 
     .category-btn {
@@ -1014,6 +1016,8 @@
         <input type="text" class="search-input" id="searchInput" placeholder="搜索笔记...">
       </div>
 
+      <div class="categories" id="categories"></div>
+
       <div class="notes-list" id="notesList"></div>
     </aside>
 
@@ -1312,9 +1316,11 @@
         <button class="category-btn ${!selectedCategory ? 'active' : ''}" onclick="selectCategory(null)">
           <span>📋</span><span>全部</span><span class="category-count">${all.length}</span>
         </button>`;
-      CATEGORIES.forEach(cat => {
-        const count = all.filter(n => n.category === cat.id).length;
-        if (count === 0) return;
+      getAllCategories().forEach(cat => {
+        const count = all.filter(n => getNoteCategory(n) === cat.id).length;
+        // Always show custom categories even if empty; hide default empty categories
+        const isCustom = customCategories.some(c => c.id === cat.id);
+        if (count === 0 && !isCustom) return;
         html += `
           <button class="category-btn ${selectedCategory === cat.id ? 'active' : ''}" onclick="selectCategory('${cat.id}')">
             <span>${cat.icon}</span><span>${cat.name}</span><span class="category-count">${count}</span>
@@ -1506,6 +1512,7 @@
 
       const catDef = getAllCategories().find(c => c.id === newCatId) || { name: newCatId };
       showToast(`已移动到「${catDef.name}」`);
+      renderCategories();
       renderNotesList();
     }
 
@@ -1572,6 +1579,7 @@
 
       closeNewGroupModal();
       populateCategorySelects();
+      renderCategories();
       renderNotesList();
     }
 
@@ -1610,6 +1618,7 @@
 
       showToast(`分组「${catDef.name}」已删除`);
       populateCategorySelects();
+      renderCategories();
       renderNotesList();
     }
 
