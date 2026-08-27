@@ -91,6 +91,16 @@ const NOTES = [
     file: 'notes/ai-pm-ability-map.md'
   },
   {
+    id: 'ai-pm-ability-map-v2',
+    title: '40k AI 产品经理能力地图（完整版）',
+    category: 'business',
+    tags: ['AI', '产品经理', '能力地图', '职业发展', '完整版'],
+    date: '2026-08-27',
+    summary: '不依赖特定笔记的完整能力地图：六大模块、40k/30k/50k 差异对比、自检清单、能力提升路径、可拓展内容',
+    intro: '【产品经理 · 职业发展与能力规划】掌握 40k AI 产品经理六大能力模块，通过 30k/40k/50k 差异对比定位自己，获取个性化能力提升路径。',
+    file: 'notes/ai-pm-ability-map-v2.md'
+  },
+  {
     id: 'aigc-product-opportunities',
     title: 'AIGC 产品机会判断 · 学习笔记',
     category: 'business',
