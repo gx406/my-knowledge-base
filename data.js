@@ -89,6 +89,15 @@ const NOTES = [
     date: '2026-08-27',
     summary: 'Skill 实战避坑指南、Skill vs MCP vs Command vs Role、Quest 1.0 设计哲学与执行流程、Token 效率法则、用 Skill 重构 DevOps 工作流',
     file: 'notes/codelive-skills-quest.md'
+  },
+  {
+    id: 'table-as-search-agent-harness',
+    title: 'Table as Search：Agent Harness 与复杂信息搜索 · 学习笔记',
+    category: 'ai',
+    tags: ['AI', 'Agent', 'Table Search', 'Harness', 'Deep Research', '多智能体', 'ACL 2026'],
+    date: '2026-08-27',
+    summary: '用表格替代文本承载搜索状态、Table Search 多智能体框架、三类长程搜索任务统一表征、Harness 自演进三阶段、Main Agent 是关键瓶颈',
+    file: 'notes/table-as-search-agent-harness.md'
   }
 ];
 
