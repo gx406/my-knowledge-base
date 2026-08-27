@@ -577,6 +577,21 @@
       font-weight: 500;
     }
 
+    .note-intro {
+      display: flex;
+      gap: 0.65rem;
+      padding: 0.85rem 1rem;
+      margin: 0 0 1.5rem 0;
+      background: var(--accent-light);
+      border-radius: 12px;
+      border: 0.5px solid var(--border);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    .note-intro-icon { flex-shrink: 0; font-size: 1rem; line-height: 1.6; }
+    .note-intro-text { flex: 1; }
+
     /* Placeholder */
     .placeholder {
       display: flex;
@@ -1696,6 +1711,7 @@
     function renderNoteView(markdown) {
       const container = document.getElementById('content');
       const isLocal = selectedNote.isLocal;
+      const introHtml = selectedNote.intro ? `<div class="note-intro"><div class="note-intro-icon">🎯</div><div class="note-intro-text">${selectedNote.intro}</div></div>` : '';
       const html = `
         <div class="note-header" style="display:flex; align-items:flex-start; gap:1rem;">
           <div style="flex:1;">
@@ -1708,6 +1724,7 @@
           </div>
           <button class="note-edit-btn" onclick="editNote('${selectedNote.id}')">✏️ 编辑</button>
         </div>
+        ${introHtml}
         <article class="markdown-body">${marked.parse(markdown)}</article>`;
       container.innerHTML = html;
       document.querySelectorAll('pre code').forEach(block => hljs.highlightElement(block));
