@@ -98,6 +98,15 @@ const NOTES = [
     date: '2026-08-27',
     summary: '用表格替代文本承载搜索状态、Table Search 多智能体框架、三类长程搜索任务统一表征、Harness 自演进三阶段、Main Agent 是关键瓶颈',
     file: 'notes/table-as-search-agent-harness.md'
+  },
+  {
+    id: 'qwen-flash-agent-intent',
+    title: '千问闪购 Agent 意图识别与多轮对话架构 · 学习笔记',
+    category: 'ai',
+    tags: ['AI', 'Agent', '意图识别', '多轮对话', 'Planner', 'MCP', 'SFT', '千问'],
+    date: '2026-08-27',
+    summary: '意图中枢机制、多意图优先级处理、上下文压缩策略、MCP 协议与 A2A 架构、SFT 微调几十万条数据、AI Native 输出优化',
+    file: 'notes/qwen-flash-agent-intent.md'
   }
 ];
 
