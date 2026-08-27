@@ -71,6 +71,15 @@ const NOTES = [
     date: '2026-08-26',
     summary: '项目立项指标定义、燃气客服平台需求定制实战、技术评审要点、AI 风控困境、四个关键反思与商业画布方法论',
     file: 'notes/ai-project-business.md'
+  },
+  {
+    id: 'aigc-product-opportunities',
+    title: 'AIGC 产品机会判断 · 学习笔记',
+    category: 'business',
+    tags: ['AI', 'AIGC', '产品机会', 'PMF', '情感计算', '内容供给', 'Context Trigger'],
+    date: '2026-08-27',
+    summary: 'AIGC 应用悲观 vs 乐观、值得做的方向（情感中介/内容暴力破解）、不建议做的方向、AI 产品三种价值逻辑、零提示与上下文触发',
+    file: 'notes/aigc-product-opportunities.md'
   }
 ];
 
